@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quadro Kanban</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+    <header>
+        <img src="https://www.sesipr.org.br/colegiosesi/layout/img/logo_colegio.svg" alt="" srcset="">
+    </header>
+    <nav>Quadro Kanban</nav>
+
     <div class="quadro-kanban">
         <div class="coluna-kanban fazer">
             <div class="coluna-cabecalho">Por Fazer</div>
@@ -15,24 +22,29 @@
         </div>
         <div class="coluna-kanban em-progresso">
             <div class="coluna-cabecalho">Em Progresso</div>
-            <div class="tarefas" id="tarefas-em-progresso"></div>
-            <button class="btn-adicionar-tarefas" data-column="in-progress">+ Adicionar Tarefa</button>
+            <div class="tarefas" id="emprogresso-tarefas"></div>
+            <button class="btn-adicionar-tarefas" data-column="emprogresso">+ Adicionar Tarefa</button>
         </div>
         <div class="coluna-kanban concluido">
             <div class="coluna-cabecalho">Concluído</div>
-            <div class="tarefas" id="tarefas-concluidas"></div>
+            <div class="tarefas" id="concluido-tarefas"></div>
             <button class="btn-adicionar-tarefas" data-column="concluido">+ Adicionar Tarefa</button>
         </div>
     </div>
 
-    <div class="modulo" id="modulo-tarefa">
-        <div class="conteudo-modulo">
-            <h3 id="titulo-modulo">Adicionar Tarefa</h3>
+    
+
+    <!-- Modal para adicionar/editar tarefa -->
+    <div class="modal" id="modal-tarefa" style="display:none;">
+        <div class="modal-content">
+            <h3 id="titulo-modal">Adicionar Tarefa</h3>
             <input type="text" id="titulo-tarefa" placeholder="Título da Tarefa" required>
-            <textarea id="descricao-tarefa" placeholder="Descrição (Opcional)"></textarea>
+            <textarea id="descricao-tarefa" placeholder="Descrição da Tarefa"></textarea>
             <button id="btn-salvar-tarefa">Salvar Tarefa</button>
+            <button onclick="document.getElementById('modal-tarefa').style.display='none'">Cancelar</button>
         </div>
     </div>
-
+    <script src="js/script.js"></script>
 </body>
+
 </html>

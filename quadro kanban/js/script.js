@@ -1,31 +1,38 @@
-let tarefas = JSON.parse(localStorage.getItem('tarefas-kaban')) || {fazer: [], emprogresso: [], concluido: []};
+let tarefas = JSON.parse(localStorage.getItem('tarefas-kaban')) || { fazer: [], emprogresso: [], concluido: [] };
 
 // Função para renderizar tarefas
 function renderizarTarefas() {
-    // Implementar renderização das tarefas com base no objeto tarefas
+    Object.keys(tarefas).forEach(coluna => {
+        const colunaElement = document.getElementById(`${coluna}-tarefas`);
+        colunaElement.innerHTML = ''; // Limpa a coluna antes de adicionar tarefas
+        tarefas[coluna].forEach(tarefa => {
+            const tarefaElement = document.createElement('div');
+            tarefaElement.classList.add('tarefa');
+            tarefaElement.innerHTML = `<div class="tarefa-titulo">${tarefa.titulo}</div>
+                                       <div class="tarefa-descricao">${tarefa.descricao || ''}</div>`;
+            colunaElement.appendChild(tarefaElement);
+        });
+    });
 }
 
-// Função para adicionar nova tarefa
-function adicionarTarefa(coluna, titulo, descricao) {
-    // Adicionar tarefa ao objeto tarefa e salvar no localStorage
+document.querySelectorAll('.btn-adicionar-tarefas').forEach(button => {
+    button.addEventListener('click', function() {
+        const coluna = this.getAttribute('data-column');
+        document.getElementById('modal-tarefa').style.display = 'block';
+        document.getElementById('btn-salvar-tarefa').onclick = function() {
+            adicionarTarefa(coluna);
+        };
+    });
+});
+
+function adicionarTarefa(coluna) {
+    const titulo = document.getElementById('titulo-tarefa').value;
+    const descricao = document.getElementById('descricao-tarefa').value;
+    const novaTarefa = { titulo, descricao };
+    tarefas[coluna].push(novaTarefa);
+    localStorage.setItem('tarefas-kaban', JSON.stringify(tarefas));
+    document.getElementById('modal-tarefa').style.display = 'none';
+    renderizarTarefas();
 }
 
-// Função para mover tarefa entre colunas
-function moverTarefa(tarefaId, novaColuna) {
-    // Mover tarefa no objeto tarefa e salvar no localStorage
-}
-
-// Função para abrir modulo de adição/edição de tarefa
-function abreModuloTarefas(coluna) {
-    // Abrir modal para adicionar ou editar tarefa
-}
-
-// Função para inicializar eventos de arrastar e soltar
-function iniciarDragAndDrop() {
-    // Adicionar eventos para permitir arrastar e soltar entre colunas
-}
-
-// Chamada inicial das funções
 renderizarTarefas();
-iniciarDragAndDrop();
-
